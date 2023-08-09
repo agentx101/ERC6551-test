@@ -1,3 +1,6 @@
+const{mnemonic, alchemyKey,opgoerliKey}=require('./secrets.json');
+// const tbaAbi= require('./abi/tbaAbi.json');
+
 require("@nomicfoundation/hardhat-toolbox");
 require("@nomiclabs/hardhat-etherscan");
 require('hardhat-deploy');
@@ -44,10 +47,15 @@ module.exports = {
       },
     ],
   },
-  defaultNetwork: "buildbear",
+  defaultNetwork: "op-goerli",
   networks: {
-    buildbear: {
-      url:  //rpc Url from BuildBear Dashboard
+    'op-goerli': {
+      url:'https://goerli.optimism.io',
+      accounts: {
+        mnemonic,
+      
+      },
+      gasPrice: 1000000,
     }
   },
   namedAccounts: {
@@ -55,15 +63,15 @@ module.exports = {
   },
   etherscan: {  // copy the Etherscan object from the verify Contracts secion on Dashboard 
     apiKey: {
-      buildbear: "verifyContract",
+      opgoerli: "verifyContract",
     },
     customChains: [
       {
-        network: "buildbear",
-        chainId: 1,
+        network: "op-goerli",
+        chainId: 420,
         urls: {
-          apiURL: "https://rpc.buildbear.io/verify/etherscan/grotesque-palpatine-970c2c15",
-          browserURL: "https://explorer.buildbear.io/grotesque-palpatine-970c2c15",
+          apiURL: 'https://api-goerli-optimism.etherscan.io/api?module=contract&action=checkproxyverification&guid=gwgrrnfy56zf6vc1fljuejwg6pelnc5yns6fg6y2i6zfpgzquz&apikey='+opgoerliKey,
+          browserURL: "https://goerli-optimism.etherscan.io/",
         },
       },
     ],
